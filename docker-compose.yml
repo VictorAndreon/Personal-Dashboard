@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  # 1. Aplicação PHP
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    depends_on:
+      - db
+    networks:
+      - laravel-net
+
+  # 2. Servidor Web Nginx
+  nginx:
+    image: nginx:alpine
+    container_name: laravel-nginx
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+    networks:
+      - laravel-net
+
+  # 3. Banco de Dados Postgres
+  db:
+    image: postgres:15-alpine
+    container_name: laravel-db
+    restart: always
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432" # Acessar via DBeaver
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - laravel-net
+
+# Definição dos Volumes e Redes
+volumes:
+  db-data:
+
+networks:
+  laravel-net:
+    driver: bridge
