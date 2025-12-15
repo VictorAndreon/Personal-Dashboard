@@ -1,9 +1,11 @@
+version: '3'
+
 services:
   # 1. Aplicação PHP
   app:
     build:
       context: .
-      dockerfile: docker/app/Dockerfile
+      dockerfile: Dockerfile
     container_name: laravel-app
     restart: always
     working_dir: /var/www
@@ -23,7 +25,7 @@ services:
       - "8080:80"
     volumes:
       - ./src:/var/www
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
     depends_on:
       - app
     networks:
@@ -36,10 +38,10 @@ services:
     restart: always
     environment:
       POSTGRES_DB: laravel
-      POSTGRES_USER: laravel
-      POSTGRES_PASSWORD: laravel
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
     ports:
-      - "5433:5432" # Acessar via DBeaver
+      - "5432:5432" # Acessar via DBeaver
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
