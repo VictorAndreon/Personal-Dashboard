@@ -4,9 +4,11 @@ Um projeto de boilerplate para um dashboard pessoal, construído com Laravel 12,
 
 <p align="center">
     <a href="https://laravel.com" target="_blank">
-        <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+        <img width="500" height="500" alt="Logo Personal-Dashboard" src="https://github.com/user-attachments/assets/80f118a9-4bcd-4426-b7e7-113740599e41" />
     </a>
 </p>
+
+
 
 <p align="center">
     <!-- Badges do Projeto -->
