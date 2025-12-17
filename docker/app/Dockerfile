@@ -16,7 +16,7 @@ RUN docker-php-ext-install \
     bcmath \
     zip
 
-# Node.js (apenas para DEV)
+# Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm \
@@ -31,9 +31,15 @@ RUN groupadd -g 1000 laravel \
 
 WORKDIR /var/www
 
-# Permissões
+# Copiar entrypoint COMO ROOT
+COPY docker/app/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Permissões do projeto
 RUN chown -R laravel:laravel /var/www
 
+# Troca para usuário não-root
 USER laravel
 
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["php-fpm"]
