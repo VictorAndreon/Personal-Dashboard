@@ -117,7 +117,7 @@ DB_PASSWORD=laravel
 No diretório raiz do projeto (`Personal-Dashboard`), execute o Docker Compose para construir as imagens e iniciar os serviços:
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 Isso irá iniciar três containers: `laravel-app` (PHP-FPM), `laravel-nginx` (Nginx) e `laravel-db` (PostgreSQL).
@@ -127,7 +127,7 @@ Isso irá iniciar três containers: `laravel-app` (PHP-FPM), `laravel-nginx` (Ng
 Acesse o container da aplicação e execute o script de setup do Composer:
 
 ```bash
-docker-compose exec app composer setup
+docker compose exec app composer setup
 ```
 
 Este script fará o seguinte:
@@ -150,7 +150,7 @@ http://localhost:8080
 Para criar um usuário de teste e dados de exemplo, execute os seeders:
 
 ```bash
-docker-compose exec app php artisan db:seed
+docker compose exec app php artisan db:seed
 ```
 
 Um usuário de teste será criado com as credenciais:
@@ -163,11 +163,11 @@ Este projeto fornece a base para um dashboard pessoal. Você pode começar a adi
 
 *   **Desenvolvimento Frontend:** Para observar as mudanças em tempo real durante o desenvolvimento de frontend, você pode iniciar o servidor Vite:
     ```bash
-    docker-compose exec app npm run dev
+    docker compose exec app npm run dev
     ```
     E em outro terminal, para ver os logs do Laravel:
     ```bash
-    docker-compose exec app php artisan pail
+    docker compose exec app php artisan pail
     ```
 *   **Acesso ao Banco de Dados:** Você pode acessar o banco de dados PostgreSQL através da porta `5433` em `localhost` usando ferramentas como DBeaver ou pgAdmin, com as credenciais definidas no `.env`.
 
