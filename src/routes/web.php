@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FinanceiroController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,9 +12,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/financeiro', function () {
-    return view('teste');
-})->middleware(['auth', 'verified'])->name('financeiro');
+Route::resource('/financeiro',FinanceiroController::class)->except('show')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

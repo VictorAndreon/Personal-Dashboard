@@ -16,12 +16,6 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('financeiro')" :active="request()->routeIs('financeiro')">
-                        {{ __('Financeiro') }}
-                    </x-nav-link>
-                </div>
 
                 {{-- Aba de Financeiro --}}
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -37,19 +31,14 @@
 
                         <el-menu anchor="bottom end" popover class="m-0 w-56 origin-top-right divide-y divide-white/10 rounded-md bg-gray-800 p-0 outline outline-1 -outline-offset-1 outline-white/10 transition [--anchor-gap:theme(spacing.2)] [transition-behavior:allow-discrete] data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in">
                             <div class="py-1">
-                                <a href={{route('profile.edit')}} class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
-                                    {{ __('Perfil') }}
+                                <a href={{route('financeiro.index', ['tipo_movimentacao' => 'entrada'])}} class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
+                                    {{ __('Entradas') }}
                                 </a>
                             </div>
 
                             <div class="py-1">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-
-                                    <x-dropdown-link :href="route('logout')" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none"
-                                        onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
-                                        {{ __('Sair') }}
+                                    <x-dropdown-link :href="route('financeiro.index', ['tipo_movimentacao' => 'saida'])" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
+                                        {{ __('Saídas') }}
                                     </x-dropdown-link>
                                 </form>
                             </div>
