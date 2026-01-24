@@ -14,12 +14,12 @@ class FinanceiroController extends Controller
         $tipo_movimentacao = $request->query('tipo_movimentacao', 'entrada'); 
         
         // Busca no banco só o que é do usuário logado E do tipo selecionado
-        $movimentacao = Movimentacao::where('user_id', Auth::id())
+        $movimentacaos = Movimentacao::where('user_id', Auth::id())
             ->where('tipo_movimentacao', $tipo_movimentacao)
             ->orderBy('dt_transacao', 'desc')
             ->get();
 
-        return view('financeiro.index', compact('movimentacao', 'tipo_movimentacao'));
+        return view('financeiro.index', compact('movimentacaos', 'tipo_movimentacao'));
     }
 
     // Mostra o formulário de criar
@@ -33,8 +33,8 @@ class FinanceiroController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'description' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0.01',
+            'descricao' => 'required|string|max:255',
+            'qtd_valor' => 'required|numeric|min:0.01',
             'dt_transacao' => 'required|date',
             'tipo_movimentacao' => 'required|in:entrada,saida',
         ]);
@@ -42,8 +42,10 @@ class FinanceiroController extends Controller
         // Adiciona o ID do usuário automaticamente
         $validated['user_id'] = Auth::id();
 
-        Movimentacao::create($validated);
 
+
+        $movimentacao = Movimentacao::create($validated);
+ 
         return redirect()->route('financeiro.index', ['tipo_movimentacao' => $request->tipo_movimentacao])
             ->with('success', 'Transação criada com sucesso!');
     }

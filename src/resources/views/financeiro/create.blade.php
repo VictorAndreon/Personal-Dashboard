@@ -18,16 +18,24 @@
                         <x-text-input id="descricao" name="descricao" type="text" class="mt-1 block w-full" required autofocus />
                         <x-input-error :messages="$errors->get('descricao')" class="mt-2" />
                     </div>
-
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div>
-                        <x-input-label for="amount" value="Valor (R$)" />
-                        <x-text-input id="amount" name="amount" type="number" step="0.01" class="mt-1 block w-full" required />
-                        <x-input-error :messages="$errors->get('amount')" class="mt-2" />
+                        <x-input-label for="qtd_valor" value="Valor (R$)" />
+                        <x-text-input id="qtd_valor" name="qtd_valor" type="number" step="0.01" class="mt-1 block w-full" required />
+                        <x-input-error :messages="$errors->get('qtd_valor')" class="mt-2" />
                     </div>
 
                     <div>
-                        <x-input-label for="date" value="Data" />
-                        <x-text-input id="date" name="date" type="date" class="mt-1 block w-full" value="{{ date('Y-m-d') }}" required />
+                        <x-input-label for="dt_transacao" value="Data" />
+                        <x-text-input id="dt_transacao" name="dt_transacao" type="dt_transacao" class="mt-1 block w-full" value="{{ date('Y-m-d') }}" required />
                     </div>
 
                     <div class="flex justify-end mt-4">

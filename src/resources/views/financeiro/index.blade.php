@@ -15,7 +15,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     
-                    @if($movimentacao->isEmpty())
+                    @if($movimentacaos->isEmpty())
                         <p class="text-gray-500 text-center">Nenhum registro encontrado.</p>
                     @else
                         <table class="w-full text-left border-collapse">
@@ -38,10 +38,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        
-                        <div class="mt-4">
-                            {{ $movimentacaos->appends(['tipo_movimentacao' => $tipo_movimentacao])->links() }}
-                        </div>
+                    
                     @endif
 
                 </div>
