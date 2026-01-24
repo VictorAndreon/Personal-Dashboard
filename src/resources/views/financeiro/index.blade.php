@@ -12,17 +12,16 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    
+            <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
                     @if($movimentacaos->isEmpty())
                         <p class="text-gray-500 text-center">Nenhum registro encontrado.</p>
                     @else
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="text-gray-500 border-b">
-                                    <th class="p-3">Data</th>
-                                    <th class="p-3">Descrição</th>
+                        <table class="w-full border-collapse bg-gray-200">
+                            <thead class="bg-gray-200 border-red-600 border-2">
+                                <tr class="text-left">
+                                    <th class="p-3 text-blue-500">Data</th>
+                                    <th class="p-3 !text-red-500">Descrição</th>
                                     <th class="p-3">Valor</th>
                                 </tr>
                             </thead>
@@ -30,19 +29,20 @@
                                 @foreach($movimentacaos as $movimentacao)
                                     <tr class="border-b hover:bg-gray-50">
                                         <td class="p-3">{{ $movimentacao->dt_transacao->format('d/m/Y') }}</td>
-                                        <td class="p-3">{{ $movimentacao->descricao }}</td>
-                                        <td class="p-3 font-bold {{ $movimentacao->tipo_movimentacao == 'entrada' ? 'text-green-600' : 'text-red-600' }}">
+                                        <td class="p-3 text-center">{{ $movimentacao->descricao }}</td>
+                                        <td class="p-3 font-bold text-center {{ $movimentacao->tipo_movimentacao == 'entrada' ? 'text-green-600' : 'text-red-600' }}">
                                             R$ {{ number_format($movimentacao->qtd_valor, 2, ',', '.') }}
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                    
                     @endif
-
                 </div>
             </div>
         </div>
+    </div>
+    <div class="bg-red-500 text-white border-4 border-green-500">
+        SE ISSO NÃO FICAR COLORIDO, O CSS NÃO ESTÁ SENDO CARREGADO
     </div>
 </x-app-layout>

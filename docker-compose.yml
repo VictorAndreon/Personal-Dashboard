@@ -13,6 +13,8 @@ services:
       - db
     networks:
       - laravel-net
+    ports:
+      - "5173:5173"
 
   # 2. Servidor Web Nginx
   nginx:

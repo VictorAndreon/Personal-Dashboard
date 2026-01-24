@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Movimentacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Number;
 
 class FinanceiroController extends Controller
 {
@@ -19,7 +20,7 @@ class FinanceiroController extends Controller
             ->orderBy('dt_transacao', 'desc')
             ->get();
 
-        return view('financeiro.index', compact('movimentacaos', 'tipo_movimentacao'));
+        return view('financeiro.index', compact('movimentacaos','tipo_movimentacao'));
     }
 
     // Mostra o formulário de criar
@@ -43,8 +44,7 @@ class FinanceiroController extends Controller
         $validated['user_id'] = Auth::id();
 
 
-
-        $movimentacao = Movimentacao::create($validated);
+        Movimentacao::create($validated);
  
         return redirect()->route('financeiro.index', ['tipo_movimentacao' => $request->tipo_movimentacao])
             ->with('success', 'Transação criada com sucesso!');
