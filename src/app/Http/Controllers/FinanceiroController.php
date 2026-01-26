@@ -49,4 +49,9 @@ class FinanceiroController extends Controller
         return redirect()->route('financeiro.index', ['tipo_movimentacao' => $request->tipo_movimentacao])
             ->with('success', 'Transação criada com sucesso!');
     }
+
+    public function destroy()
+    {
+
+    }
 }
