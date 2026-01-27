@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Number;
 
+use function Flasher\Prime\flash;
+
 class FinanceiroController extends Controller
 {
     public function index(Request $request)
@@ -43,11 +45,12 @@ class FinanceiroController extends Controller
         // Adiciona o ID do usuário automaticamente
         $validated['user_id'] = Auth::id();
 
-
         Movimentacao::create($validated);
- 
-        return redirect()->route('financeiro.index', ['tipo_movimentacao' => $request->tipo_movimentacao])
-            ->with('success', 'Transação criada com sucesso!');
+
+        notify()
+            ->option('timeout', 3000)
+            ->success('Entrada cadastrada com sucesso!');
+        return redirect()->route('financeiro.index', ['tipo_movimentacao' => $request->tipo_movimentacao]);
     }
 
     public function destroy()
