@@ -29,17 +29,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN groupadd -g 1000 laravel \
     && useradd -u 1000 -ms /bin/bash -g laravel laravel
 
-WORKDIR /var/www
-
-# Copiar entrypoint COMO ROOT
-COPY docker/app/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# Permissões do projeto
-RUN chown -R laravel:laravel /var/www
-
 # Troca para usuário não-root
 USER laravel
 
-ENTRYPOINT ["entrypoint.sh"]
+WORKDIR /var/www
+
 CMD ["php-fpm"]
