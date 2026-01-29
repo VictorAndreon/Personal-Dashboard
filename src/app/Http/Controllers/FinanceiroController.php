@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Movimentacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Number;
-
-use function Flasher\Prime\flash;
 
 class FinanceiroController extends Controller
 {
@@ -41,20 +38,29 @@ class FinanceiroController extends Controller
             'dt_transacao' => 'required|date',
             'tipo_movimentacao' => 'required|in:entrada,saida',
         ]);
-
+        
         // Adiciona o ID do usuário automaticamente
         $validated['user_id'] = Auth::id();
 
         Movimentacao::create($validated);
 
-        notify()
-            ->option('timeout', 3000)
-            ->success('Entrada cadastrada com sucesso!');
+
         return redirect()->route('financeiro.index', ['tipo_movimentacao' => $request->tipo_movimentacao]);
     }
 
-    public function destroy()
+    public function destroy($idTransacao)
     {
+        $movimentacao = Movimentacao::findOrFail($idTransacao);
+        $tipo_movimentacao = $movimentacao->tipo_movimentacao;
 
+        try{
+            $movimentacao->delete();
+
+            return redirect()->route('financeiro.index', ['tipo_movimentacao' => $tipo_movimentacao])
+                 ->with('success', 'Registro deletado!');
+        }catch(\Exception $ex){
+            return redirect()->route('financeiro.index', ['tipo_movimentacao' => $tipo_movimentacao])
+                 ->with('error', 'Houve um erro ao deletar o registro!');
+        }
     }
 }

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             Adicionar {{ $tipo_movimentacao === 'entrada' ? 'Entrada' : 'Saída' }}
         </h2>
     </x-slot>
@@ -15,14 +15,14 @@
 
                     <div>
                         <x-input-label for="descricao" value="Descrição" />
-                        <x-text-input id="descricao" name="descricao" type="text" class="mt-1 block w-full" required autofocus />
+                        <x-text-input id="descricao" name="descricao" type="text" class="mt-1 block w-full text-black" required autofocus />
                         <x-input-error :messages="$errors->get('descricao')" class="mt-2" />
                     </div>
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li>{{ $error}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -35,7 +35,7 @@
 
                     <div>
                         <x-input-label for="dt_transacao" value="Data" />
-                        <x-text-input id="dt_transacao" name="dt_transacao" type="dt_transacao" class="mt-1 block w-full" value="{{ date('Y-m-d') }}" required />
+                        <x-text-input id="dt_transacao" name="dt_transacao" type="dt_transacao" class="datepicker form-input mt-1 block w-full" value="{{now()->format('Y-m-d')}}" required />
                     </div>
 
                     <div class="flex justify-end mt-4">
@@ -49,3 +49,6 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+
+</script>
