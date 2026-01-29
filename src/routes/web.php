@@ -4,6 +4,11 @@ use App\Http\Controllers\FinanceiroController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+/* TODO
+- Ajustar Nomenclatura do Controller e do Model para fazer sentido.
+- Ajustar Create.blade da tela de financeiro.
+*/
+
 Route::get('/', function () {
     return view('auth/login');
 });
