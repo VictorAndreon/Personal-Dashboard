@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\FinanceiroController;
+use App\Http\Controllers\MovimentacaoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /* TODO
-- Ajustar Nomenclatura do Controller e do Model para fazer sentido.
-- Ajustar Create.blade da tela de financeiro.
+- Ajustar Create.blade da tela de movimentacao.
 */
 
 Route::get('/', function () {
@@ -17,7 +16,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('/financeiro',FinanceiroController::class)->except('show','edit')->middleware(['auth', 'verified']);
+Route::resource('/movimentacao',MovimentacaoController::class)->except('show','edit')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

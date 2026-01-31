@@ -1,15 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
-            Adicionar {{ $tipo_movimentacao === 'entrada' ? 'Entrada' : 'Saída' }}
+            Adicionar Movimentação
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <div class="bg-stone-100 overflow-hidden shadow-sm sm:rounded-lg p-6">
                 
-                <form action="{{ route('financeiro.store') }}" method="POST" class="space-y-4">
+                <form action="{{ route('movimentacao.store') }}" method="POST" class="space-y-4">
                     @csrf
                     <input type="hidden" name="tipo_movimentacao" value="{{ $tipo_movimentacao }}">
 

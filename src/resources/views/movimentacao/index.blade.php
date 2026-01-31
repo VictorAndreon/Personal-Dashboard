@@ -1,11 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-white leading-tight">
-                {{ $tipo_movimentacao === 'entrada' ? 'Entradas 💰' : 'Saídas 💸' }}
-            </h2>
-            <a href="{{ route('financeiro.create', ['tipo_movimentacao' => $tipo_movimentacao]) }}" class="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700">
-                Nova {{ $tipo_movimentacao === 'entrada' ? 'Entrada' : 'Saída' }}
+            <a href="{{ route('movimentacao.create') }}" class="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700">
+                Adicionar Movimentação
             </a>
         </div>
     </x-slot>
@@ -14,7 +11,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    @if($movimentacaos->isEmpty())
+                    @if($movimentacoes->isEmpty())
                         <p class="text-gray-500 text-center">Nenhum registro encontrado.</p>
                     @else
                         <table class="w-full border-collapse bg-gray-200">
@@ -27,16 +24,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($movimentacaos as $movimentacao)
+                                @foreach($movimentacoes as $movimentacao)
                                     <tr id={{$movimentacao->id}} class="border-b hover:bg-gray-300 odd:bg-gray-200 even:bg-white border-b border-black">
                                         <td class="p-3">{{ $movimentacao->dt_transacao->format('d/m/Y') }}</td>
                                         <td class="p-3 text-center">{{ $movimentacao->descricao }}</td>
                                         <td class="p-3 font-bold text-center {{ $movimentacao->tipo_movimentacao == 'entrada' ? 'text-green-600' : 'text-red-600' }}">
-                                            R$ {{ number_format($movimentacao->qtd_valor, 2, ',', '.') }}
+                                            {{ $movimentacao->tipo_movimentacao == 'entrada' 
+                                            ? ' + R$ ' . number_format($movimentacao->qtd_valor, 2, ',', '.') 
+                                            : ' - R$ ' . number_format($movimentacao->qtd_valor, 2, ',', '.') }}
                                         </td>
                                         <td class="p-3 text-center align-middle">
                                             <form method="POST" 
-                                                  action="{{ route('financeiro.destroy', $movimentacao) }}" 
+                                                  action="{{ route('movimentacao.destroy', $movimentacao) }}" 
                                                   class="inline"
                                                   onsubmit='confirmaExclusao(event)'>
                                                 @csrf

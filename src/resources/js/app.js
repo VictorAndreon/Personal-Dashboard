@@ -29,13 +29,20 @@ window.confirmaExclusao = function(event) {
 
     Swal.fire({
         title: 'Confirmar Exclusão',
-        text: 'Você tem certeza? Esta ação não pode ser desfeita.',
+        text: 'Esta ação não pode ser desfeita e afetará seu saldo.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sim',
-        cancelButtonText: 'Cancelar'
+        confirmButtonColor: '#f34316', 
+        cancelButtonColor: '#6b7280', 
+        confirmButtonText: 'Sim, excluir',
+        cancelButtonText: 'Manter registro',
+        background: '#ffffff',
+        customClass: {
+            popup: 'rounded-xl shadow-2xl border border-gray-100',
+            title: 'text-gray-800 font-bold',
+            confirmButton: 'rounded-lg px-6 py-2 uppercase tracking-wider',
+            cancelButton: 'rounded-lg px-6 py-2 uppercase tracking-wider'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             form.submit();
