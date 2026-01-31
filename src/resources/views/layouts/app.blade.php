@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+        @routes
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -13,9 +14,60 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body class="font-sans antialiased">
+        @if(session('success'))
+            <script>
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  customClass: {
+                    popup: 'rounded-lg border-2 border-green-500 bg-green-50 shadow-xl',
+                    title: 'text-green-800 font-bold text-lg',
+                    timerProgressBar: 'bg-green-500',
+                  },
+                  didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                  }
+                });
+                Toast.fire({
+                  icon: "success",
+                  title: "Sucesso!",
+                  text: "{{ session('success') }}"
+                });
+            </script>
+        @endif
+        
+        @if(session('error'))
+            <script>
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  customClass: {
+                    popup: 'rounded-lg border-2 border-red-500 bg-red-50 shadow-xl',
+                    title: 'text-red-800 font-bold text-lg',
+                    timerProgressBar: 'bg-red-500',
+                  },
+                  didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                  }
+                });
+                Toast.fire({
+                  icon: "error",
+                  title: "Erro!",
+                  text: "{{ session('error') }}"
+                });
+            </script>
+        @endif
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
