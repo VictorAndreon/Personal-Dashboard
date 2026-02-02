@@ -36,7 +36,7 @@
                                 </x-dropdown-link>
                             </div>
                             <div>
-                               <x-dropdown-link :href="route('movimentacao.index')" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
+                               <x-dropdown-link :href="route('categoria.index')" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
                                     {{ __('Categorias') }}
                                 </x-dropdown-link>
                             </div>
@@ -50,21 +50,21 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>{{ Auth::user()->name ?? 'Convidado'}}</div>
                             <svg class="fill-current h-4 w-4 ms-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
                             {{ __('Perfil') }}
                         </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Sair') }}
+                                onclick="event.preventDefault(); this.closest('form').submit();" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
+                                {{ __('Sair') }} 
                             </x-dropdown-link>
                         </form>
                     </x-slot>

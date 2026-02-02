@@ -11,7 +11,6 @@
                 
                 <form action="{{ route('movimentacao.store') }}" method="POST" class="space-y-4">
                     @csrf
-                    <input type="hidden" name="tipo_movimentacao" value="{{ $tipo_movimentacao }}">
 
                     <div>
                         <x-input-label for="descricao" value="Descrição" />
