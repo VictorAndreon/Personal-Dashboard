@@ -1,8 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
-            Adicionar Movimentação
-        </h2>
+        <div class='flex justify-between'>
+            <div>
+                <a href="{{ route('transaction.index') }}" class="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700">
+                    Voltar para listagem
+                </a>
+            </div>
+            <div>
+                <h2 class="font-semibold text-xl text-white leading-tight">
+                    Atualizar Movimentação
+                </h2>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -13,9 +22,9 @@
                     @csrf
 
                     <div>
-                        <x-input-label for="description" value="Descrição" />
-                        <x-text-input id="description" name="description" type="text" class="mt-1 block w-full text-black" required autofocus />
-                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                        <x-form.input-label for="description" value="Descrição" />
+                        <x-form.input-text id="description" name="description" type="text" class="mt-1 block w-full text-black" required autofocus />
+                        <x-form.input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -27,26 +36,28 @@
                         </div>
                     @endif
                     <div>
-                        <x-input-label for="amount" value="Valor (R$)" />
-                        <x-text-input id="amount" name="amount" type="number" step="0.01" class="mt-1 block w-full" required />
-                        <x-input-error :messages="$errors->get('amount')" class="mt-2" />
+                        <x-form.input-label for="amount" value="Valor (R$)" />
+                        <x-form.input-text id="amount" name="amount" type="number" step="0.01" class="mt-1 block w-full" required />
+                        <x-form.input-error :messages="$errors->get('amount')" class="mt-2" />
                     </div>
 
                     <div>
-                        <x-input-label for="transaction_date" value="Data" />
-                        <x-text-input id="transaction_date" name="transaction_date" type="date" class="datepicker form-input mt-1 block w-full" value="{{now()->format('Y-m-d')}}" required />
+                        <x-form.input-label for="transaction_date" value="Data" />
+                        <x-form.input-text id="transaction_date" name="transaction_date" type="date" class="datepicker form-input mt-1 block w-full" value="{{now()->format('Y-m-d')}}" required />
+                        <x-form.input-error :messages="$errors->get('transaction_date')" class="mt-2" />
                     </div>
 
                     <div>
-                        <x-input-label for='type' value="Tipo de Movimentação"/>
+                        <x-form.input-label for='type' value="Tipo de Movimentação"/>
                         <select name='type'>
                             <option value='income'>Entrada</option>
                             <option value='expense'>Saída</option>
                         </select>
+                        <x-form.input-error :messages="$errors->get('type')" class="mt-2" />
                     </div>
 
                     <div>
-                        <x-input-label for='category' value="Categoria"/>
+                        <x-form.input-label for='category' value="Categoria"/>
                         <select name="category" required class="w-full border rounded px-3 py-2">
                             <option value="">Selecione uma categoria</option>
 
@@ -71,6 +82,7 @@
                                 <option value="other_income">💸 Outras Receitas</option>
                             </optgroup>
                         </select>
+                        <x-form.input-error :messages="$errors->get('category')" class="mt-2" />
                     </div>
 
                     <div class="flex justify-end mt-4">
