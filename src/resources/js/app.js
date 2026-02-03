@@ -7,11 +7,11 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.css";
 import { Portuguese } from "flatpickr/dist/l10n/pt.js";
 
-window.initDatePicker = function() {
+window.initDatePicker = function () {
     flatpickr(".datepicker", {
         locale: Portuguese,
         altInput: true,
-        altFormat: "d/m/Y", // O que o usuário vê
+        altFormat: "d/m/Y",
         dateFormat: "Y-m-d",
         allowInput: true,
     });
@@ -23,7 +23,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-window.confirmaExclusao = function(event) {
+window.confirmaExclusao = function (event) {
     event.preventDefault();
     const form = event.target;
 
@@ -32,8 +32,8 @@ window.confirmaExclusao = function(event) {
         text: 'Esta ação não pode ser desfeita e afetará seu saldo.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#f34316', 
-        cancelButtonColor: '#6b7280', 
+        confirmButtonColor: '#f34316',
+        cancelButtonColor: '#6b7280',
         confirmButtonText: 'Sim, excluir',
         cancelButtonText: 'Manter registro',
         background: '#ffffff',

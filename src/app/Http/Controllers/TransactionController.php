@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TransactionController extends Controller
 {
@@ -27,12 +28,11 @@ class TransactionController extends Controller
     // Salva no banco
     public function store(Request $request)
     {
-        // dd($request->all());
         $validated = $request->validate([
             'description'      => 'required|string|max:255',
             'amount'           => 'required|numeric|min:0.01',
             'transaction_date' => 'required|date',
-            'type'             => 'required|in:income, expense',
+            'type'             => 'required|in:income,expense',
             'category'         => 'required',
         ]);
         
@@ -40,12 +40,39 @@ class TransactionController extends Controller
         $validated['user_id'] = Auth::id();
         Transaction::create($validated);
 
-        return redirect()->route('transaction.index');
+        return redirect()->route('transaction.index')->with('success', 'Transação adicionada com sucesso!');
     }
 
-    public function destroy($idTransacao)
+    public function edit($idTransaction)
     {
-        $transaction = Transaction::findOrFail($idTransacao);
+        $transaction = Transaction::where('user_id', Auth::id())
+                        ->where('id', $idTransaction)
+                        ->firstOrFail();
+
+        return view('transaction.edit')
+        ->with('transaction', $transaction);
+    }
+
+    public function update(Transaction $transaction, Request $request)
+    {
+         Gate::authorize('update', $transaction);
+
+        $validated = $request->validate([
+            'description'      => 'required|string|max:255',
+            'amount'           => 'required|numeric|min:0.01',
+            'transaction_date' => 'required|date',
+            'type'             => 'required|in:income,expense',
+            'category'         => 'required',
+        ]);
+
+        $transaction->update($validated);
+
+        return redirect()->route('transaction.index')->with('success', 'Transação atualizada com sucesso!');
+    }
+
+    public function destroy($idTransaction)
+    {
+        $transaction = Transaction::findOrFail($idTransaction);
         try{
             $transaction->delete();
 
