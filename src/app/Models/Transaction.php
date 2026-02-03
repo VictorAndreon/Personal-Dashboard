@@ -5,24 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Movimentacao extends Model
+class Transaction extends Model
 {
     protected $primaryKey = 'id';
-
-    protected $table = 'movimentacao';
 
     use HasFactory;
 
     protected $fillable = [
+        'category',
         'user_id',
-        'descricao',
-        'qtd_valor',
-        'tipo_movimentacao',
-        'dt_transacao',
+        'description',
+        'amount',
+        'type',
+        'transaction_date',
     ];
 
     protected $casts = [
-        'dt_transacao' => 'date',
-        'qtd_valor' => 'decimal:2',
+        'transaction_date' => 'date',
+        'amount' => 'decimal:2',
     ];
 }

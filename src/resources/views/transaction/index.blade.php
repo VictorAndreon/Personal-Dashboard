@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <a href="{{ route('movimentacao.create') }}" class="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700">
+        <div class="flex justify-end items-center">
+            <a href="{{ route('transaction.create') }}" class="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700">
                 Adicionar Movimentação
             </a>
         </div>
@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    @if($movimentacoes->isEmpty())
+                    @if($transactions->isEmpty())
                         <p class="text-gray-500 text-center">Nenhum registro encontrado.</p>
                     @else
                         <table class="w-full border-collapse bg-gray-200">
@@ -24,18 +24,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($movimentacoes as $movimentacao)
-                                    <tr id={{$movimentacao->id}} class="border-b hover:bg-gray-300 odd:bg-gray-200 even:bg-white border-b border-black">
-                                        <td class="p-3">{{ $movimentacao->dt_transacao->format('d/m/Y') }}</td>
-                                        <td class="p-3 text-center">{{ $movimentacao->descricao }}</td>
-                                        <td class="p-3 font-bold text-center {{ $movimentacao->tipo_movimentacao == 'entrada' ? 'text-green-600' : 'text-red-600' }}">
-                                            {{ $movimentacao->tipo_movimentacao == 'entrada' 
-                                            ? ' + R$ ' . number_format($movimentacao->qtd_valor, 2, ',', '.') 
-                                            : ' - R$ ' . number_format($movimentacao->qtd_valor, 2, ',', '.') }}
+                                @foreach($transactions as $transaction)
+                                    <tr id={{$transaction->id}} class="border-b hover:bg-gray-300 odd:bg-gray-200 even:bg-white border-b border-black">
+                                        <td class="p-3">{{ $transaction->transaction_date->format('d/m/Y') }}</td>
+                                        <td class="p-3 text-center">{{ $transaction->description }}</td>
+                                        <td class="p-3 font-bold text-center {{ $transaction->type == 'income' ? 'text-green-600' : 'text-red-600' }}">
+                                            {{ $transaction->type == 'income' 
+                                            ? ' + R$ ' . number_format($transaction->amount, 2, ',', '.') 
+                                            : ' - R$ ' . number_format($transaction->amount, 2, ',', '.') }}
                                         </td>
                                         <td class="p-3 text-center align-middle">
                                             <form method="POST" 
-                                                  action="{{ route('movimentacao.destroy', $movimentacao) }}" 
+                                                  action="{{ route('transaction.destroy', $transaction) }}" 
                                                   class="inline"
                                                   onsubmit='confirmaExclusao(event)'>
                                                 @csrf

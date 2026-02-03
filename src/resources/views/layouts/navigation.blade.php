@@ -31,13 +31,13 @@
                         </x-slot>
                         <x-slot name="content">
                             <div>
-                               <x-dropdown-link :href="route('movimentacao.index')" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
+                               <x-dropdown-link :href="route('transaction.index')" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
                                     {{ __('Movimentações') }}
                                 </x-dropdown-link>
                             </div>
                             <div>
-                               <x-dropdown-link :href="route('movimentacao.index')" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
-                                    {{ __('Categorias') }}
+                               <x-dropdown-link :href="route('transaction.index')" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
+                                    {{ __('placeholder') }}
                                 </x-dropdown-link>
                             </div>
                         </x-slot>
