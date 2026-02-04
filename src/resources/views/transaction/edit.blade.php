@@ -13,17 +13,22 @@
             </div>
         </div>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-stone-100 overflow-hidden shadow-sm sm:rounded-lg p-6">
                 
-                <form action="{{ route('transaction.store') }}" method="POST" class="space-y-4">
+                <form action="{{ route('transaction.update', $transaction->id) }}" method="POST" class="space-y-4">
                     @csrf
-
+                    @method('PUT')
                     <div>
                         <x-form.input-label for="description" value="Descrição" />
-                        <x-form.input-text id="description" name="description" type="text" class="mt-1 block w-full text-black" required autofocus />
+                        <x-form.input-text 
+                            id="description" 
+                            name="description" 
+                            type="text" 
+                            class="mt-1 block w-full text-black" 
+                            value='{{$transaction->description}}' required autofocus 
+                        />
                         <x-form.input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
                     @if ($errors->any())
@@ -37,13 +42,26 @@
                     @endif
                     <div>
                         <x-form.input-label for="amount" value="Valor (R$)" />
-                        <x-form.input-text id="amount" name="amount" type="number" step="0.01" class="mt-1 block w-full" required />
+                        <x-form.input-text 
+                            id="amount" 
+                            name="amount" 
+                            type="number" 
+                            step="0.01" 
+                            class="mt-1 block w-full" 
+                            value='{{$transaction->amount}}' required 
+                        />
                         <x-form.input-error :messages="$errors->get('amount')" class="mt-2" />
                     </div>
 
                     <div>
                         <x-form.input-label for="transaction_date" value="Data" />
-                        <x-form.input-text id="transaction_date" name="transaction_date" type="date" class="datepicker form-input mt-1 block w-full" value="{{now()->format('Y-m-d')}}" required />
+                        <x-form.input-text 
+                            id="transaction_date" 
+                            name="transaction_date" 
+                            type="date" 
+                            class="datepicker form-input mt-1 block w-full" 
+                            value="{{$transaction->transaction_date}}" required 
+                        />
                         <x-form.input-error :messages="$errors->get('transaction_date')" class="mt-2" />
                     </div>
 
@@ -87,7 +105,7 @@
 
                     <div class="flex justify-end mt-4">
                         <x-primary-button>
-                            Salvar
+                            Atualizar
                         </x-primary-button>
                     </div>
                 </form>
