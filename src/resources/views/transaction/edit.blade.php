@@ -8,15 +8,14 @@
             </div>
             <div>
                 <h2 class="font-semibold text-xl text-white leading-tight">
-                    Atualizar Movimentação
+                    Editar Transação
                 </h2>
             </div>
         </div>
     </x-slot>
     <div class="py-12">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-stone-100 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                
+            <div class="bg-gray-800 overflow-hidden shadow-white shadow-sm sm:rounded-lg p-6" >
                 <form action="{{ route('transaction.update', $transaction->id) }}" method="POST" class="space-y-4">
                     @csrf
                     @method('PUT')
@@ -66,40 +65,26 @@
                     </div>
 
                     <div>
-                        <x-form.input-label for='type' value="Tipo de Movimentação"/>
-                        <select name='type'>
-                            <option value='income'>Entrada</option>
-                            <option value='expense'>Saída</option>
-                        </select>
+                        <x-form.input-label for="type" value="Tipo de Movimentação" />
+                        <x-form.input-select 
+                            name="type"
+                            :options="[
+                                'income' => 'Entrada',
+                                'expense' => 'Saída'
+                            ]"
+                            :selected="$transaction->type ?? null"
+                            required/>
                         <x-form.input-error :messages="$errors->get('type')" class="mt-2" />
                     </div>
 
                     <div>
                         <x-form.input-label for='category' value="Categoria"/>
-                        <select name="category" required class="w-full border rounded px-3 py-2">
-                            <option value="">Selecione uma categoria</option>
-
-                            <optgroup label="💸 Despesas">
-                                <option value="housing">🏠 Moradia</option>
-                                <option value="food">🍔 Alimentação</option>
-                                <option value="transportation">🚗 Transporte</option>
-                                <option value="entertainment">🎮 Lazer</option>
-                                <option value="health">💊 Saúde</option>
-                                <option value="education">📚 Educação</option>
-                                <option value="shopping">🛒 Compras</option>
-                                <option value="bills">📄 Contas</option>
-                                <option value="others">📦 Outros</option>
-                            </optgroup>
-
-                            <optgroup label="💰 Receitas">
-                                <option value="salary">💵 Salário</option>
-                                <option value="freelance">💼 Freelance</option>
-                                <option value="investment">📈 Investimento</option>
-                                <option value="gift">🎁 Presente</option>
-                                <option value="refund">🔄 Reembolso</option>
-                                <option value="other_income">💸 Outras Receitas</option>
-                            </optgroup>
-                        </select>
+                        <x-form.input-select 
+                            name='category'
+                            :options="$categories"
+                            placeholder='Selecione uma Categoria'
+                            :selected="$transaction->category ?? null"
+                            required/>
                         <x-form.input-error :messages="$errors->get('category')" class="mt-2" />
                     </div>
 

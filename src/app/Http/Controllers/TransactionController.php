@@ -28,6 +28,7 @@ class TransactionController extends Controller
     // Salva no banco
     public function store(Request $request)
     {
+        dd($request->all());
         $validated = $request->validate([
             'description'      => 'required|string|max:255',
             'amount'           => 'required|numeric|min:0.01',
@@ -73,6 +74,9 @@ class TransactionController extends Controller
     public function destroy($idTransaction)
     {
         $transaction = Transaction::findOrFail($idTransaction);
+
+        Gate::authorize('delete', $transaction);
+        
         try{
             $transaction->delete();
 
