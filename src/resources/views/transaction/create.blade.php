@@ -37,7 +37,7 @@
                     @endif
                     <div>
                         <x-form.input-label for="amount" value="Valor (R$)" />
-                        <x-form.input-text id="amount" name="amount" type="number" step="0.01" class="mt-1 block w-full" required />
+                        <x-form.input-text id="amount" name="amount" type="number" step="0.01" min="0.01" class="mt-1 block w-full" required />
                         <x-form.input-error :messages="$errors->get('amount')" class="mt-2" />
                     </div>
 

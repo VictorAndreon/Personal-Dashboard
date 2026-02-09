@@ -3,13 +3,14 @@
 namespace App\View\Components;
 
 use App\Models\Transaction;
+use App\Services\FinancialService;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class DashboardCard extends Component
 {
-    public $transaction;
+    public $value;
     public $title;
     public $color;
     public $icon;
@@ -17,16 +18,15 @@ class DashboardCard extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($transaction)
+    public function __construct($value)
     {
-        $this->transaction = $transaction;
-
+        $this->value = $value;
 
     }
 
     public function formattedAmount()
     {
-        return 'R$ ' . number_format($this->transaction, 2, ',', '.');
+        return 'R$ ' . number_format($this->value, 2, ',', '.');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class TransactionObserver
 {

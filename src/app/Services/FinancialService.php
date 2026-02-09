@@ -18,7 +18,7 @@ class FinancialService
                         SUM(CASE WHEN type = ? THEN amount ELSE 0 END) -
                         SUM(CASE WHEN type = ? THEN amount ELSE 0 END) as value
                     ', ['income', 'expense'])
-                    ->value('value') ?? 0;
+                    ->value('value');
             }
         );
     }

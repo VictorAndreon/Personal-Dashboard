@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -20,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //Categorias
         View::composer('transaction.*', function ($view){
             $categories = [
                 '💸 Despesas' => [

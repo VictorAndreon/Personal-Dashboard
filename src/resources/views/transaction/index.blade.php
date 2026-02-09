@@ -45,8 +45,8 @@
                                         <td class="p-3 text-center">{{ $transaction->description }}</td>
                                         <td class="p-3 font-bold text-center {{ $transaction->type == 'income' ? 'text-green-600' : 'text-red-600' }}">
                                             {{ $transaction->type == 'income' 
-                                            ? ' + R$ ' . number_format($transaction->amount, 2, ',', '.') 
-                                            : ' - R$ ' . number_format($transaction->amount, 2, ',', '.') }}
+                                            ? format_currency($transaction->amount,'BRL','+') 
+                                            : format_currency($transaction->amount,'BRL','-') }}
                                         </td>
                                         <td class="p-3 text-center align-middle">
                                             <div class='flex align-middle justify-center gap-2'>
