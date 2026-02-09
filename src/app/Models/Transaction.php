@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\TransactionObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+#[ObservedBy(TransactionObserver::class)]
 class Transaction extends Model
 {
     protected $primaryKey = 'id';
@@ -24,4 +27,15 @@ class Transaction extends Model
         'transaction_date' => 'date',
         'amount' => 'decimal:2',
     ];
+
+    public function scopeUser($query, int $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    public function scopeCurrentMonth ($query)
+    {
+        return $query->whereMonth('transaction_date', now()->month)
+                    ->whereYear('transaction_date', now()->year);
+    }
 }
