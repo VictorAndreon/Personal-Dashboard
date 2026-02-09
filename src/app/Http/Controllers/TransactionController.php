@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
 class TransactionController extends Controller
@@ -28,7 +29,6 @@ class TransactionController extends Controller
     // Salva no banco
     public function store(Request $request)
     {
-        dd($request->all());
         $validated = $request->validate([
             'description'      => 'required|string|max:255',
             'amount'           => 'required|numeric|min:0.01',
@@ -40,6 +40,7 @@ class TransactionController extends Controller
         // Adiciona o ID do usuário automaticamente
         $validated['user_id'] = Auth::id();
         Transaction::create($validated);
+
 
         return redirect()->route('transaction.index')->with('success', 'Transação adicionada com sucesso!');
     }

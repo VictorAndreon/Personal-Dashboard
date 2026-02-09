@@ -10,7 +10,11 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("Você foi conectado!") }}
+                    <p>Saldo Carteira: {{$balance}}</p>
+                    <p>Saldo Mensal: {{$monthBalance}}</p>
                 </div>
+                <x-dashboard-card :transaction='$balance' description='Saldo Carteira'/>
             </div>
         </div>
+    </div>
 </x-app-layout>
