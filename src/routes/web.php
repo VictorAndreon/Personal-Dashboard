@@ -13,6 +13,10 @@ Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['aut
 
 Route::resource('/transaction',TransactionController::class)->except('show')->middleware(['auth', 'verified']);
 
+Route::get('/grafico', function (){
+        return view('grafico');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
