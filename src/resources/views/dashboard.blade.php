@@ -13,7 +13,9 @@
                     <p>Saldo Carteira: {{format_currency($balance, 'BRL')}}</p>
                     <p>Saldo Mensal: {{format_currency($monthBalance)}}</p>
                 </div>
-                <x-dashboard-card :value='$balance'/>
+                <x-dashboard-card :value='$balance'>
+                    <x-slot name='title'> {{$categoryName}}</x-slot>
+                </x-dashboard-card>
             </div>
         </div>
     </div>

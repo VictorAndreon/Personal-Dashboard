@@ -15,7 +15,11 @@ class DashboardController extends Controller
     {
         $balance = $financialService->getBalance(Auth::id());
         $monthBalance = $financialService->getMonthBalance(Auth::id());
-        return view('dashboard', compact('balance', 'monthBalance'));
+        $categoryCardData = $financialService->getMostExpensiveCategoryMonth(Auth::id());
+        $categoryValue = $categoryCardData->max();
+        $categoryName = $categoryCardData->search($categoryValue);
+        
+        return view('dashboard', compact('balance', 'monthBalance', 'categoryName','categoryValue'));
     }
 
     /**

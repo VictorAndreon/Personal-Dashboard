@@ -38,4 +38,18 @@ class FinancialService
 
         return $receita - $despesa;
     }
+
+    public function getMostExpensiveCategoryMonth (int $userId)
+    {
+        $resultado = Transaction::User($userId)
+                    ->CurrentMonth()
+                    ->where('type', 'expense')
+                    ->selectRaw('category, count(*) as total')
+                    ->groupBy('category')
+                    ->orderBy('total', 'desc')
+                    ->pluck('total', 'category');
+
+        return $resultado;
+
+    }
 }

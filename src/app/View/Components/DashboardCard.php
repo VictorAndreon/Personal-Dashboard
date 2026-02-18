@@ -26,7 +26,7 @@ class DashboardCard extends Component
 
     public function formattedAmount()
     {
-        return 'R$ ' . number_format($this->value, 2, ',', '.');
+        return format_currency($this->value, 'BRL');
     }
 
     /**

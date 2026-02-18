@@ -1,4 +1,5 @@
-<div class="p-4 rounded-lg shadow {{ $color }}"> <div class="flex items-center justify-between">
+<div class="p-4 rounded-lg shadow bg-white {{ $color }} w-1/4"> 
+    <div class="flex items-center justify-between">
         <span class="text-2xl">{{ $icon }}</span>
         
         <span class="font-bold text-lg">
