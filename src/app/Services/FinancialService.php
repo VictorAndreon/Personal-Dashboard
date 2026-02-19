@@ -7,25 +7,43 @@ use Illuminate\Support\Facades\Cache;
 
 class FinancialService
 {
-    public function getBalance (int $userId)
+    public function getDashboardCardSummary(int $userId)
     {
         return Cache::remember(
             key: "user_balance_{$userId}",
             ttl: 300, 
             callback: function () use ($userId) {
-                return Transaction::User($userId)
+                return [
+                    'todayBalance' => [
+                        'value' => $this->getTodayBalance($userId),
+                        'variation' => [null, null]
+                        ],
+                    'monthlyBalance' => [
+                        'value' => $this->getMonthlyBalance($userId),
+                        'variation' => ['percentage' => 12, 'trend' => 'up'],
+                    ]
+                ];
+            }
+        );
+    }
+
+    public function getTodayBalance(int $userId)
+    {
+        $result = Transaction::User($userId)
                     ->selectRaw('
                         SUM(CASE WHEN type = ? THEN amount ELSE 0 END) -
                         SUM(CASE WHEN type = ? THEN amount ELSE 0 END) as value
                     ', ['income', 'expense'])
                     ->value('value');
-            }
-        );
+
+        $result = (float)$result;
+        
+        return $result;
     }
 
-    public function getMonthBalance(int $userId)
+    public function getMonthlyBalance(int $userId)
     {
-        $resultado = Transaction::query()
+        $result = Transaction::query()
                         ->User($userId)
                         ->CurrentMonth()
                         ->selectRaw('
@@ -33,15 +51,15 @@ class FinancialService
                             SUM (CASE WHEN type = ? THEN amount ELSE 0 END) AS despesa
                         ',['income', 'expense'])
                         ->first();
-        $receita = floatval($resultado->receita ?? 0);
-        $despesa = floatval($resultado->despesa ?? 0);
+        $receita = floatval($result->receita ?? 0);
+        $despesa = floatval($result->despesa ?? 0);
 
         return $receita - $despesa;
     }
 
     public function getMostExpensiveCategoryMonth (int $userId)
     {
-        $resultado = Transaction::User($userId)
+        $result = Transaction::User($userId)
                     ->CurrentMonth()
                     ->where('type', 'expense')
                     ->selectRaw('category, count(*) as total')
@@ -49,7 +67,7 @@ class FinancialService
                     ->orderBy('total', 'desc')
                     ->pluck('total', 'category');
 
-        return $resultado;
+        return $result;
 
     }
 }
