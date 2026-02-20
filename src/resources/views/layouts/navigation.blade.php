@@ -17,8 +17,11 @@
                 </div>
 
                 {{-- Aba de Financeiro --}}
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <x-dropdown align="left" width="48">
+                <div @class([
+                    "hidden sm:flex sm:items-center sm:ms-6",
+                    "border-b-2 border-primary-600" => request()->routeIs('transaction.*'),
+                ])>
+                    <x-dropdown align="left" width="48" >
                         <x-slot name='trigger'>
                             <button class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm leading-4 font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                 <div> Financeiro </div>
@@ -32,7 +35,7 @@
                         <x-slot name="content">
                             <div>
                                <x-dropdown-link :href="route('transaction.index')" class="block px-4 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-none">
-                                    {{ __('Movimentações') }}
+                                    {{ __('Transações') }}
                                 </x-dropdown-link>
                             </div>
                             <div>
@@ -46,7 +49,10 @@
             </div>
 
             <!-- User Dropdown -->
-            <div class="flex items-center">
+            <div @class([
+                    "hidden sm:flex sm:items-center sm:ms-6",
+                    "border-b-2 border-primary-600" => request()->routeIs('profile.*'),
+                ])>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">

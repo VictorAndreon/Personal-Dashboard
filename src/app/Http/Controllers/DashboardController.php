@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\FinancialService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(FinancialService $financialService)
     {
-        return view('dashboard');
+        // dd($financialService->getTodayBalance(Auth::id()), $financialService->getLastMonthBalance(Auth::id()));
+        $monthlySummary = $financialService->getDashboardCardSummary(Auth::id());
+        
+        return view('dashboard', compact('monthlySummary'));
     }
 
     /**
