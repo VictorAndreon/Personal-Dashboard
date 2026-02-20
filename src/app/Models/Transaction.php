@@ -38,4 +38,10 @@ class Transaction extends Model
         return $query->whereMonth('transaction_date', now()->month)
                     ->whereYear('transaction_date', now()->year);
     }
+
+    public function scopeLastMonth ($query)
+    {
+        return $query->whereMonth('transaction_date', now()->subMonth()->firstOfMonth())
+                    ->whereYear('transaction_date', now()->year);
+    }
 }

@@ -22,9 +22,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //Categorias
-        View::composer('transaction.*', function ($view){
+        View::composer(['transaction.*', 'dashboard'], function ($view){
             $categories = [
-                '💸 Despesas' => [
+                'Despesas' => [
                     'moradia'      => '🏠 Moradia',
                     'alimentacao'  => '🍔 Alimentação',
                     'transporte'   => '🚗 Transporte',
@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
                     'contas'       => '📄 Contas',
                     'outros'       => '📦 Outros',
                 ],
-                '💰 Receitas' => [
+                'Receitas' => [
                     'salario'         => '💵 Salário',
                     'freelance'       => '💼 Freelance',
                     'investimento'    => '📈 Investimento',

@@ -2,7 +2,7 @@
 
 if (!function_exists('format_currency')){
 
-    function format_currency(float $amount, string $currency = 'BRL', ?string $sign = null)
+    function format_currency(float $amount, string $currency = 'BRL', ?string $sign = null) :string
     {
         $config = config("currencies.$currency");
 
