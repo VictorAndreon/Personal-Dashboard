@@ -25,24 +25,24 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['transaction.*', 'dashboard'], function ($view){
             $categories = [
                 'Despesas' => [
-                    'moradia'      => '🏠 Moradia',
-                    'alimentacao'  => '🍔 Alimentação',
-                    'transporte'   => '🚗 Transporte',
-                    'lazer'        => '🎮 Lazer',
-                    'saude'        => '💊 Saúde',
-                    'educacao'     => '📚 Educação',
-                    'compras'      => '🛒 Compras',
-                    'contas'       => '📄 Contas',
-                    'outros'       => '📦 Outros',
+                    'housing'        => '🏠 Moradia',
+                    'food'           => '🍔 Alimentação',
+                    'transportation' => '🚗 Transporte',
+                    'entertainment'  => '🎮 Lazer',
+                    'health'         => '💊 Saúde',
+                    'education'      => '📚 Educação',
+                    'shopping'       => '🛒 Compras',
+                    'bills'          => '📄 Contas',
+                    'others'         => '📦 Outros',
                 ],
                 'Receitas' => [
-                    'salario'         => '💵 Salário',
-                    'freelance'       => '💼 Freelance',
-                    'investimento'    => '📈 Investimento',
-                    'presente'        => '🎁 Presente',
-                    'reembolso'       => '🔄 Reembolso',
-                    'outras_receitas' => '💸 Outras Receitas',
-                ],
+                    'salary'       => '💵 Salário',
+                    'freelance'    => '💼 Freelance',
+                    'investment'   => '📈 Investimento',
+                    'gift'         => '🎁 Presente',
+                    'refund'       => '🔄 Reembolso',
+                    'other_income' => '💸 Outras Receitas',
+                ]
             ];
 
             $view->with('categories', $categories);
