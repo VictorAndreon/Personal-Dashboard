@@ -16,7 +16,7 @@ dd($monthlySummary["monthlyBalance"]["variation"]);
                     {{-- <p>Saldo Carteira: {{format_currency($balance, 'BRL')}}</p> --}}
                     {{-- <p>Saldo Mensal: {{format_currency($monthBalance)}}</p> --}}
                 </div>
-                <x-dashboard-card :value='$monthlySummary["monthlyBalance"]["value"]' :variation='$monthlySummary["monthlyBalance"]["variation"]'>
+                <x-dashboard-card :value='$monthlySummary["monthlyIncome"]["value"]' :variation='$monthlySummary["monthlyIncome"]["variation"]'>
                     <x-slot name='title'>Receitas do Mês</x-slot>
                 </x-dashboard-card>
             </div>
