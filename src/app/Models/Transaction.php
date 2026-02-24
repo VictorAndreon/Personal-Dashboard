@@ -33,15 +33,19 @@ class Transaction extends Model
         return $query->where('user_id', $userId);
     }
 
-    public function scopeCurrentMonth ($query)
+    public function scopeCurrentMonth($query)
     {
-        return $query->whereMonth('transaction_date', now()->month)
-                    ->whereYear('transaction_date', now()->year);
+        $start = now()->startOfMonth();
+        $end   = now()->endOfMonth();
+
+        return $query->whereBetween('transaction_date', [$start, $end]);
     }
 
-    public function scopeLastMonth ($query)
+    public function scopeLastMonth($query)
     {
-        return $query->whereMonth('transaction_date', now()->subMonth()->firstOfMonth())
-                    ->whereYear('transaction_date', now()->year);
+        $start = now()->subMonth()->startOfMonth();
+        $end   = now()->subMonth()->endOfMonth();
+
+        return $query->whereBetween('transaction_date', [$start, $end]);
     }
 }
