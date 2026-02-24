@@ -35,50 +35,42 @@ class DashboardCard extends Component
         $this->icon = $this->getIconClass();
     }
 
-    /**
-     * Direção matemática (independente de tipo)
-     */
     private function calculateDirection(): string
     {
         if (!$this->variation) {
             return 'stable';
         }
-        
-        $percentage = $this->variation['percentage'] ?? 0;
-        
-        return match(true) {
-            $percentage > 0 => 'up',
-            $percentage < 0 => 'down',
+
+        // Confia no trend calculado pela service
+        return match($this->variation['trend'] ?? 'neutral') {
+            'up'   => 'up',
+            'down' => 'down',
             default => 'stable'
         };
     }
 
-    /**
-     * Sentimento de negócio (depende de tipo)
-     */
     private function calculateSentiment(): string
     {
         if (!$this->variation) {
             return 'neutral';
         }
-        
-        $percentage = $this->variation['percentage'] ?? 0;
-        $type = $this->variation['type'] ?? null;
-        
+
+        $trend = $this->variation['trend'] ?? 'neutral';
+        $type  = $this->variation['type'] ?? null;
+
         if ($type === null) {
-            return match(true) {
-                $percentage > 0 => 'positive',
-                $percentage < 0 => 'negative',
+            return match($trend) {
+                'up'   => 'positive',
+                'down' => 'negative',
                 default => 'neutral'
             };
         }
-        
-        // Com tipo = lógica de negócio
+
         return match(true) {
-            ($percentage > 0 && $type === 'income') => 'positive',  // Income subiu = bom
-            ($percentage < 0 && $type === 'expense') => 'positive', // Expense caiu = bom
-            ($percentage > 0 && $type === 'expense') => 'negative', // Expense subiu = ruim
-            ($percentage < 0 && $type === 'income') => 'negative',  // Income caiu = ruim
+            ($trend === 'up'   && $type === 'income')  => 'positive',
+            ($trend === 'down' && $type === 'expense') => 'positive',
+            ($trend === 'up'   && $type === 'expense') => 'negative',
+            ($trend === 'down' && $type === 'income')  => 'negative',
             default => 'neutral'
         };
     }

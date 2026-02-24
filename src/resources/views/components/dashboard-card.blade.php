@@ -4,9 +4,15 @@
     </div>
     
     <div class="flex items-center justify-center pt-2">
-        <span class="font-bold text-2xl p-2 {{ $value > 0 ? 'text-green-500' : ($value < 0 ? 'text-red-500' : 'text-gray-500') }}">
-            {{ format_currency($value) }}
-        </span>
+        @if($variation)
+            <span class="font-bold text-2xl p-2 {{ $value > 0 ? 'text-green-500' : ($value < 0 ? 'text-red-500' : 'text-gray-500') }}">
+                {{ format_currency($value) }}
+            </span>
+        @elseif($category)
+            <span class="font-bold text-2xl p-2 text-red-500">
+                {{ format_currency($value) }}
+            </span>
+        @endif
     </div>
 
     @if($variation)
@@ -15,7 +21,7 @@
                 <i class="fa-solid {{ $icon }}"></i>
             </span>
             <span class="font-medium {{ $color }}">
-                {{ abs(round($variation['percentage'])) }}%
+                {{ abs($variation['percentage']) }}%
             </span>
             <span class="text-white">vs mês anterior</span>
         </div>

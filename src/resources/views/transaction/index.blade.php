@@ -53,7 +53,7 @@
                                                 {{ $transaction->description }}
                                             </td>
                                             <td class="px-4 py-3 text-base text-gray-100 text-right">
-                                                {{ $categories[$transaction->type === 'income' ? 'Receitas' : 'Despesas'][$transaction->category]}}
+                                                {{ $categories[$transaction->type === 'income' ? 'Receitas' : 'Despesas'][$transaction->category] }}
                                             </td>
                                             <td class="px-4 py-3 text-base font-semibold text-right {{ $transaction->type == 'income' ? 'text-green-600' : 'text-red-600' }}">
                                                 {{ $transaction->type == 'income' 

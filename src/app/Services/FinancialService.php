@@ -71,21 +71,28 @@ class FinancialService
     }
 
     //Calcular variação de PL
-    private function calculateVariation (float $currentValue, float $previousValue, ?string $type = null) : array
+    private function calculateVariation(float $current, float $previous, ?string $type = null): array
     {
-        if($previousValue == 0){
-            return ['percentage' => 0, 'trend' => 'neutral'];
+        if ($previous == 0) {
+            return ['percentage' => 0, 'trend' => 'neutral', 'type' => $type];
         }
 
-        $percentage = ($currentValue - $previousValue) / $previousValue * 100;
+        $percentage = ($current - $previous) / abs($previous) * 100;
 
-        $result = [
-            'percentage' => $percentage,
-            'trend'      => $percentage > 0 ? 'up' : ( $percentage < 0 ? 'down' : 'neutral'),
+        // Corrige o trend quando ambos são negativos
+        $trend = match(true) {
+            $current < 0 && $previous < 0 && $current < $previous => 'down',
+            $current < 0 && $previous < 0 && $current > $previous => 'up',
+            $percentage > 0 => 'up',
+            $percentage < 0 => 'down',
+            default => 'neutral'
+        };
+
+        return [
+            'percentage' => round(abs($percentage), 2),
+            'trend'      => $trend,
             'type'       => $type,
         ];
-
-        return $result;
     }
 
     //Função genérica para as consultas
