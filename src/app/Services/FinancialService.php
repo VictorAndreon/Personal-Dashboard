@@ -19,7 +19,7 @@ class FinancialService
                 $currentMonth   = $this->getBalanceByScope($userId, scope: 'CurrentMonth');
                 $lastMonth      = $this->getBalanceByScope($userId, scope: 'LastMonth');
                 $topCategory    = $this->getTopExpenseCategory($userId);
-                
+
                 return [
                     'todayBalance' => [
                         'value'     => $today['balance'],
@@ -37,6 +37,15 @@ class FinancialService
                 ];
             }
         );
+    }
+
+    //Pegas as ultimas 5 transações para a Dash
+    public function getRecentTransactions (int $userId)
+    {
+        return Transaction::User($userId)
+                    ->orderBy('transaction_date', 'desc')
+                    ->limit(5)
+                    ->get();
     }
 
     //Categoria mais gasta

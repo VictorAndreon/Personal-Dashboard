@@ -13,10 +13,9 @@ class DashboardController extends Controller
      */
     public function index(FinancialService $financialService)
     {
-        // dd($financialService->getTodayBalance(Auth::id()), $financialService->getLastMonthBalance(Auth::id()));
         $monthlySummary = $financialService->getDashboardCardSummary(Auth::id());
-        
-        return view('dashboard', compact('monthlySummary'));
+        $transactions   = $financialService->getRecentTransactions(Auth::id());
+        return view('dashboard', compact('monthlySummary', 'transactions'));
     }
 
     /**

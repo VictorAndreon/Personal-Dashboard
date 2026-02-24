@@ -66,15 +66,24 @@
                     </div>
 
                     <div>
-                        <x-form.input-label for="type" value="Tipo de Movimentação" />
-                        <x-form.input-select 
-                            name="type"
-                            :options="[
-                                'income' => 'Entrada',
-                                'expense' => 'Saída'
-                            ]"
-                            :selected="$transaction->type ?? null"
-                            required/>
+                        <x-form.input-label for='type' value="Tipo de Movimentação"/>
+                        <div class="join w-full">
+                            <input type="radio" name="type" value="income" id="opt_income" class="peer/income hidden" 
+                                @checked(old('type', $transaction->type ?? '') == 'income') />
+                            
+                            <label for="opt_income" 
+                                class="join-item btn w-1/2 bg-gray-900 shadow-none border border-gray-700 text-[#E0E0E0] rounded-md hover:text-black hover:bg-primary-50 peer-checked/income:bg-primary-600 peer-checked/income:text-white peer-checked/income:border-primary-600">
+                                Receita
+                            </label>
+
+                            <input type="radio" name="type" value="expense" id="opt_expense" class="peer/expense hidden" 
+                                @checked(old('type', $transaction->type ?? '') == 'expense') />
+                            
+                            <label for="opt_expense" 
+                                class="join-item btn w-1/2 bg-gray-900 shadow-none border border-gray-700 text-[#E0E0E0] rounded-md hover:text-black hover:bg-primary-50 peer-checked/expense:bg-primary-600 peer-checked/expense:text-white peer-checked/expense:border-primary-600">
+                                Despesa
+                            </label>
+                        </div>
                         <x-form.input-error :messages="$errors->get('type')" class="mt-2" />
                     </div>
 
