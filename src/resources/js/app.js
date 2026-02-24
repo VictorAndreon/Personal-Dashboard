@@ -6,6 +6,9 @@ import Alpine from 'alpinejs';
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.css";
 import { Portuguese } from "flatpickr/dist/l10n/pt.js";
+import ApexCharts from 'apexcharts'
+
+window.ApexCharts = ApexCharts;
 
 window.initDatePicker = function () {
     flatpickr(".datepicker", {
